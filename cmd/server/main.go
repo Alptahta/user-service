@@ -1,10 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
-	"github.com/Alptahta/user-service/cmd/internal"
-	"go.uber.org/zap"
+	"github.com/Alptahta/user-service/pkg/utility"
 )
 
 func main() {
@@ -15,13 +15,10 @@ func main() {
 }
 
 func run() error {
-	logger, err := zap.NewProduction()
+	postgreSQLConfig, err := utility.LoadPostgreSqlConfig(".")
 	if err != nil {
 		return err
 	}
-	pool, err := internal.NewPostgreSQL()
-	if err != nil {
-		return err
-	}
+	fmt.Println(postgreSQLConfig.DBDriver)
 	return nil
 }
