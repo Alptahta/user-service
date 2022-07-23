@@ -4,6 +4,7 @@ import "github.com/spf13/viper"
 
 const configName = "postgresql"
 const configType = "env"
+const configPath = "."
 
 // Config stores all configuration of the application.
 // The values are read by viper from a config file or environment variable.
@@ -12,8 +13,8 @@ type PostgreSQLConfig struct {
 }
 
 // LoadConfig reads configuration from file or environment variables.
-func LoadPostgreSqlConfig(path string) (postgreSQLConfig PostgreSQLConfig, err error) {
-	viper.AddConfigPath(path)
+func LoadPostgreSqlConfig() (postgreSQLConfig *PostgreSQLConfig, err error) {
+	viper.AddConfigPath(configPath)
 	viper.SetConfigName(configName)
 	viper.SetConfigType(configType)
 
@@ -21,9 +22,12 @@ func LoadPostgreSqlConfig(path string) (postgreSQLConfig PostgreSQLConfig, err e
 
 	err = viper.ReadInConfig()
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	err = viper.Unmarshal(&postgreSQLConfig)
-	return
+	if err != nil {
+		return nil, err
+	}
+	return postgreSQLConfig, nil
 }

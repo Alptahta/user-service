@@ -8,17 +8,18 @@ import (
 )
 
 func main() {
-	err := run()
+	err := initDB()
 	if err != nil {
-		log.Fatalf("Couldn't run: %s", err)
+		log.Fatalf("Couldn't initDB: %s", err)
 	}
 }
 
-func run() error {
-	postgreSQLConfig, err := utility.LoadPostgreSqlConfig(".")
+func initDB() error {
+	postgreSQLConfig, err := utility.LoadPostgreSqlConfig()
 	if err != nil {
 		return err
 	}
-	fmt.Println(postgreSQLConfig.DBDriver)
+	fmt.Println(postgreSQLConfig)
+
 	return nil
 }
