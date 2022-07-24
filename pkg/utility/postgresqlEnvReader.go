@@ -9,7 +9,11 @@ const configPath = "."
 // Config stores all configuration of the application.
 // The values are read by viper from a config file or environment variable.
 type PostgreSQLConfig struct {
-	DBDriver string `mapstructure:"DB_DRIVER"`
+	DBDriver   string `mapstructure:"DB_DRIVER"`
+	DBUsername string `mapstructure:"DB_USERNAME"`
+	DBPassword string `mapstructure:"DB_PASSWORD"`
+	DBPort     string `mapstructure:"DB_PORT"`
+	DBName     string `mapstructure:"DB_NAME"`
 }
 
 // LoadConfig reads configuration from file or environment variables.
