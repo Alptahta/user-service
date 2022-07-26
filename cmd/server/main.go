@@ -41,8 +41,12 @@ func newServer(db *gorm.DB) *http.Server {
 	repo := postgresql.NewUser(db)
 	svc := service.NewUserService(repo)
 	rest.NewUserHandler(svc).Register(r)
+
+	address := "0.0.0.0:9234"
+
 	return &http.Server{
 		Handler:           r,
+		Addr:              address,
 		ReadTimeout:       1 * time.Second,
 		ReadHeaderTimeout: 1 * time.Second,
 		WriteTimeout:      1 * time.Second,
